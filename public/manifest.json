@@ -1,8 +1,12 @@
 {
   "manifest_version": 3,
-  "name": "My Extension",
-  "version": "0.1.0",
-  "description": "My Chrome Extension",
+  "name": "Eyes-Free",
+  "version": "1.0",
+  "description": "An Accessible Email Assistant for Visually Impaired",
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';",
+    "sandbox": "sandbox allow-scripts allow-forms allow-popups allow-modals; script-src 'self' 'unsafe-inline' 'unsafe-eval'; child-src 'self';"
+  },
   "icons": {
     "16": "icons/icon_16.png",
     "32": "icons/icon_32.png",
@@ -12,22 +16,51 @@
   "background": {
     "service_worker": "background.js"
   },
-  "action": {
-    "default_title": "My Extension",
-    "default_popup": "popup.html"
-  },
-  "permissions": [
-    "storage"
-  ],
   "content_scripts": [
-    {
-      "matches": [
-        "<all_urls>"
-      ],
-      "run_at": "document_idle",
-      "js": [
-        "contentScript.js"
-      ]
+  {
+    "matches": ["<all_urls>"],
+    "js": ["contentScript.js"]
+  },
+  {
+    "matches": ["<all_urls>"],
+    "js": ["compose_mail.js"]
+  },
+  {
+    "matches": ["<all_urls>"],
+    "js": ["inbox.js"]
+  },
+  {
+    "matches": ["<all_urls>"],
+    "js": ["popup.js"]
+  },
+  {
+    "matches": ["<all_urls>"],
+    "js": ["annyang_min.js"]
+  }
+],
+  "action": {
+    "default_title": "Click to open panel"
+  },
+  "host_permissions": ["<all_urls>"],
+  "permissions": [
+    "sidePanel",
+    "activeTab",
+    "storage",
+    "tabs",
+    "scripting",
+    "tts",
+    "ttsEngine",
+    "tabCapture",
+    "nativeMessaging",
+    "identity",
+    "identity.email"
+  ],
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+B",
+        "mac": "Command+B"
+      }
     }
-  ]
+  }
 }

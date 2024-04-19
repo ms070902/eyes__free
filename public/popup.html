@@ -1,32 +1,62 @@
-<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>My Chrome Extension</title>
-    <link rel="stylesheet" href="popup.css" />
-  </head>
-  <body>
-    <div class="app">
-      <p class="counter-label">Counter</p>
-      <div id="counter" class="counter"></div>
-      <div class="button-container">
-        <button id="decrementBtn" class="button">-</button>
-        <button id="incrementBtn" class="button">+</button>
-      </div>
 
-      <hr class="divider" />
-
-      <p class="title">Chrome Extension is Ready!</p>
-      <p class="subtitle">Start by updating <code>popup.html</code></p>
-    </div>
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="annyang_min.js"></script>
+    <script src="contentScript.js"></script>
     <script src="popup.js"></script>
+    <script src="compose_mail.js"></script>
+    <script src="inbox.js"></script>
+    <title>Document</title>
+</head>
 
-    <!--
-      This HTML file opens when you click on icon from the toolbar.
+<body style="background-color: whitesmoke;">
+    <div id="hii" style="
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 50px 25px 0px 25px;
+    ">
+    Hey!
+    </div>
+    <div id="user" style="
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 10px 25px 50px 25px;
+    ">
+    </div>
+    <div style="position: relative; 
+	display: inline-block; 
+	padding-left: 1em; 
+	left: 50%; 
+	transform: translateX(-50%); 
+    font-size: 20px;
+    font-style: italic;">
+        <li>
+            Inbox 
+        </li>
+        <li>
+            Compose Mail
+        </li>
+        <li>
+            Search Mail
+        </li>
+        <li>
+            Forward Mail
+        </li>
+        <li>
+            Delete Mail
+        </li>
 
-      To begin the development, run `npm run watch`.
-      To create a production bundle, use `npm run build`.
-    -->
-  </body>
+    </div>
+    <!-- <h1>beprojectgroup40</h1> -->
+
+</body>
+
 </html>

@@ -12,6 +12,9 @@ const config = (env, argv) =>
       popup: PATHS.src + '/popup.js',
       contentScript: PATHS.src + '/contentScript.js',
       background: PATHS.src + '/background.js',
+      compose_mail: PATHS.src + '/compose_mail.js',
+      annyang_min: PATHS.src + '/annyang_min.js',
+      inbox: PATHS.src + '/inbox.js',
     },
     devtool: argv.mode === 'production' ? false : 'source-map',
   });

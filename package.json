@@ -11,6 +11,7 @@
     "format": "prettier --write --ignore-unknown \"{config,public,src}/**/*.{html,css,js,ts,json}\""
   },
   "devDependencies": {
+    "@types/wavesurfer.js": "^6.0.12",
     "adm-zip": "^0.5.12",
     "copy-webpack-plugin": "^10.2.4",
     "css-loader": "^6.11.0",
@@ -20,5 +21,15 @@
     "webpack": "^5.91.0",
     "webpack-cli": "^4.10.0",
     "webpack-merge": "^5.10.0"
+  },
+  "dependencies": {
+    "@breezystack/lamejs": "^1.2.7",
+    "extendable-media-recorder": "^9.1.13",
+    "extendable-media-recorder-wav-encoder": "^7.0.108",
+    "file-saver": "^2.0.5",
+    "fix-webm-duration": "^1.0.5",
+    "lamejs": "^1.2.1",
+    "recorder-js": "^1.0.7",
+    "wavesurfer.js": "^7.7.8"
   }
 }
