@@ -1,6 +1,6 @@
-# <img src="public/icons/icon_48.png" width="45" align="left"> My Extension
+# <img src="public/icons/icon_48.png" width="45" align="left"> Eyes-Free
 
-My Chrome Extension
+Eyes-Free
 
 ## Features
 
