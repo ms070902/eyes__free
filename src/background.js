@@ -62,6 +62,16 @@ chrome.runtime.onMessage.addListener(async function(request, sender, sendRespons
   }
 });
 
+chrome.runtime.onInstalled.addListener(function(details) {
+  if (details.reason === 'install') {
+    openWebPage();
+  }
+});
+
+function openWebPage() {
+  chrome.tabs.create({ url: 'https://www.google.com' });
+}
+
 // setTimeout(() => {
 //   navigator.mediaDevices.getUserMedia({ audio: true })
 //   .catch(function() {
