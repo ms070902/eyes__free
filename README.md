@@ -1,6 +1,7 @@
 # <img src="public/icons/icon_48.png" width="45" align="left"> Eyes-Free
 
 An Accessible email assistant for Visually Impaired.
+
 A Chrome extension that enables voice command control for email operations, coupled with voice verification to ensure only authorized users can access their Gmail accounts.
 
 
@@ -21,11 +22,11 @@ To use this extension clone the repository locally using ```$ git clone https://
 Install [Chrome Extension CLI](https://github.com/dutiyesh/chrome-extension-cli) using following command:
 
 ```bash
-  npm install -g chrome-extension-cli
+  $ npm install -g chrome-extension-cli
 ```
 To build the project use following command:
 ```bash
-  npm run watch
+  $ npm run watch
 ```  
 It will create a build folder in your working directory.
 
@@ -41,7 +42,7 @@ Follow below steps to run backend.
 
 Step1: Install all libraries:
 ```bash
-  pip install SpeechRecognition fastapi speechbrain "uvicorn[standard]"
+  $ pip install SpeechRecognition fastapi speechbrain "uvicorn[standard]"
 
 ```
 These are the functions performed by the libraries:
@@ -57,13 +58,13 @@ We download ngrok zip file through this website and then install it in the local
 
 Step 3: Start server
 ```bash
-  uvicorn main:app –reload
+  $ uvicorn main:app –reload
 ```
 We use this command to start the server. Now this server can accept HTTP requests and send response.
 
 Step 4: Host server on ngrok:
 ```bash
-  ngrok http http://127.0.0.1:8000
+  $ ngrok http http://127.0.0.1:8000
 ```
 We use ngrok to host the server.
 
@@ -72,20 +73,19 @@ You can also use following commands inorder to build zip folder to be uploaded t
 
 ```bash
     ///Packs the build folder into a zip file under release folder.
-    npm run pack
+    $ npm run pack
 
     ///Rebuilds and packs the app into a zip file. 
     ///It is a shorthand for npm run build && npm run pack.
-    npm run repack
+    $ npm run repack
 ```
 ## Demo
 
 [Click here for video Demo](https://drive.google.com/file/d/1zr5pC-X_TISNTI7tlu4hh1sRucDroO-X/view?usp=sharing)
 
-<img src="demo/extension_loaded.png" width="100" height="50" align="center">
+<img src="demo/extension_loaded.png" align="center">
 
-<img src="demo/extension_view.png" width="100" height="50" align="center">
-
+<img src="demo/extension_view.png" align="center">
 
 ## Authors
 
