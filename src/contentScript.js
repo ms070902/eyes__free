@@ -1,107 +1,18 @@
 'use strict';
 
-import FileSaver from 'file-saver'
 import fixWebmDuration from "fix-webm-duration";
 
-var recognition, div, languageSelected, isStopButtonClicked = false;
-let lastTranscript, interimTranscript, finalTranscript;
+
 var mediaRecorder;
 var audioChunks = [];
-var transcript;
 let userEmail;
 let body = '';
 
-let apiUrl = "https://c509-2401-4900-56fb-5162-805d-5c70-a7a5-bed4.ngrok-free.app/"
+let apiUrl = "https://618c-202-179-95-90.ngrok-free.app/"
 
 chrome.runtime.sendMessage({ action: "get_email" }, function (response) {
   userEmail = response.email;
 });
-
-// const init = () => {
-//   div = document.createElement('div');
-//   div.className = 'live-caption';
-
-//   setDivStyle(div);
-
-//   recognition = new webkitSpeechRecognition();
-//   recognition.continuous = true;
-//   recognition.interimResults = true;
-//   recognition.lang = languageSelected || "en-US";
-
-//   recognition.onresult = event => {
-//     let last = event.results.length - 1;
-//     lastTranscript = event.results[last][0].transcript;
-//     interimTranscript = '';
-//     finalTranscript = '';
-
-//     for (var i = event.resultIndex; i < event.results.length; ++i) {
-//         // Verify if the recognized text is the last with the isFinal property
-//       if (event.results[i].isFinal) {
-//         finalTranscript += event.results[i][0].transcript;
-//       } else {
-//         interimTranscript += event.results[i][0].transcript;
-//       }
-//     }
-
-//     div.textContent = interim_transcript;
-//     document.body.appendChild(div);
-
-//     if(lastTranscript === "done"){
-//       recognition.stop();
-//     }
-//   }
-
-//   recognition.onerror = event => {
-//     console.log("error", event.error)
-//     if(event.error === 'not-allowed'){
-//       const errorMessage = "AudioCapture permission has been blocked because of a Feature Policy applied to the current document. See https://goo.gl/EuHzyv for more details.";
-//       chrome.runtime.sendMessage({error: errorMessage})
-//       isStopButtonClicked = true;
-//       recognition.stop();
-//     }
-//   }
-
-//   recognition.onspeechstart = event => console.log("speech started");
-//   recognition.onspeechend = event => lastTranscript = "";
-//   recognition.onend = function(event) {
-//     recognition.start();
-//   }
-
-//   recognition.start();
-// }
-
-// // const startTracking = () => recognition.start();
-
-// const setDivStyle = div => {
-//   div.style.bottom = '10px';
-//   div.style.left = 0;
-//   div.style.textAlign = 'center';
-//   div.style.backgroundColor = 'rgba(0,0,0,0.8)';
-//   div.style.position = 'absolute';
-//   div.style.color = 'white';
-//   div.style.padding = '10px';
-//   div.style.fontSize = '30px';
-//   div.style.width = '50%';
-//   div.style.transform = 'translate(50%)';
-//   div.style.border = '2px solid white';
-//   div.style.borderRadius = "5px";
-//   div.style.zIndex= "10000";
-//   div.style.fontFamily = "Arial";
-// }
-
-// // const stopTracking = () => {
-// //   // if(lastTranscript !== ""){
-// //   //   recognition.stop();
-// //   // } else {
-// //   //   recognition.stop();
-// //   //   recognition.start();
-// //   // }
-// //   recognition.stop();
-// //   if(document.body.contains(div)){
-// //     document.body.removeChild(div);
-// //   }
-// // }
-// let capturedStream = null;
 
 let duration;
 let startTime;
@@ -133,92 +44,12 @@ const recordAudio = async () => {
     .catch(function (error) {
       console.error('Error accessing microphone:', error);
     });
-  // try {
-  //   const stream = await navigator.mediaDevices.getUserMedia({
-  //     audio: {
-  //       echoCancellation: true,
-  //     }
-  //   });
-  //   audioChunks = [];
-  //   capturedStream = stream;
-
-  //   // Use the extended MediaRecorder library
-  //   mediaRecorder = new MediaRecorder(stream, {
-  //     mimeType: 'audio/wav'
-  //   });
-
-  //   // Add audio blobs while recording 
-  //   mediaRecorder.addEventListener('dataavailable', event => {
-  //     audioChunks.push(event.data);
-  //   });
-
-  //   mediaRecorder.start();
-  // } catch (e) {
-  //   console.error(e);
-  // }
 }
-
-
-// function stopRecording() {
-//   return new Promise(resolve => {
-//     if (!mediaRecorder) {
-//       resolve(null);
-//       return;
-//     }
-
-//     mediaRecorder.addEventListener('stop', () => {
-//       const mimeType = mediaRecorder.mimeType;
-//       const audioBlob = new Blob(audioChunks, { type: mimeType });
-
-//       if (capturedStream) {
-//         capturedStream.getTracks().forEach(track => track.stop());
-//       }
-
-//       resolve(audioBlob);
-//     });
-
-//     mediaRecorder.stop();
-
-//   });
-// }
 
 
 
 
 const stopRecording = () => {
-  // playsound("stopped");
-  // let audioBlob = null;
-  // navigator.mediaDevices.getUserMedia({ audio: true })
-  //   .then(function (stream) {
-
-
-  //     mediaRecorder.onstop = async function () {
-  //       audioBlob = new Blob(audChunks, { type: 'audio/wav' });
-  //       const audioUrl = URL.createObjectURL(audioBlob);
-
-  //       // audioElement = new Audio(audioUrl);
-  //       // audioElement.play();
-
-  //       // audioElement.addEventListener('canplaythrough', function() {
-  //       //   startTracking();
-  //       // });
-
-  //       // recognition.start(audioBlob);
-  //       // console.log(transcript);
-  //       // const response = await uploadBlob(mp3Blob, 'wav');
-  //       // console.log(response);
-  //       // For testing purposes, log the audio URL
-  //       // console.log('Audio URL:', audioUrl);
-  //     };
-
-  //     mediaRecorder.stop();
-  //     // return response;
-  //     return audioBlob;
-
-  //   })
-  //   .catch(function (error) {
-  //     console.error('Error accessing microphone:', error);
-  //   });
 
   return new Promise((resolve, reject) => {
     playsound("stopped");
@@ -231,9 +62,6 @@ const stopRecording = () => {
           // Resolve the promise with the audioBlob
           resolve(audioBlob);
 
-          // Example usage:
-          // const audioUrl = URL.createObjectURL(audioBlob);
-          // console.log('Audio URL:', audioUrl);
         };
 
         mediaRecorder.onerror = function (event) {
@@ -246,45 +74,8 @@ const stopRecording = () => {
         console.error('Error accessing microphone:', error);
         reject(error);
       });
-    // if (!mediaRecorder) {
-    //   resolve(null);
-    //   return;
-    // }
-
-    // mediaRecorder.addEventListener('stop', () => {
-    //   const mimeType = mediaRecorder.mimeType;
-    //   const audioBlob = new Blob(audioChunks, { type: mimeType });
-
-    //   if (capturedStream) {
-    //     capturedStream.getTracks().forEach(track => track.stop());
-    //   }
-
-    //   resolve(audioBlob);
-    // });
-
-    // mediaRecorder.stop();
   });
 }
-
-// async function uploadBlob(audioBlob, fileType) {
-//   const formData = new FormData();
-//   formData.append('audio_data', audioBlob, 'file');
-//   formData.append('type', fileType || 'mp3');
-
-//   // Your server endpoint to upload audio:
-//   const apiUrl = "http://localhost:3000/upload/audio";
-
-//   const response = await fetch(apiUrl, {
-//     method: 'POST',
-//     cache: 'no-cache',
-//     body: formData
-//   });
-
-//   return response.json();
-// }
-
-// init();
-
 
 
 
@@ -327,32 +118,6 @@ function audioBufferToWav(aBuffer) {
     btwOffset++; // next source sample
   }
 
-  // let wavHdr = lamejs.WavHeader.readHeader(new DataView(btwArrBuff));
-
-  //Stereo
-  // let data = new Int16Array(btwArrBuff, wavHdr.dataOffset, wavHdr.dataLen / 2);
-  // let leftData = [];
-  // let rightData = [];
-  // for (let i = 0; i < data.length; i += 2) {
-  //   leftData.push(data[i]);
-  //   rightData.push(data[i + 1]);
-  // }
-  // var left = new Int16Array(leftData);
-  // var right = new Int16Array(rightData);
-
-  // if (AudioFormat === "MP3") {
-  //   //STEREO
-  //   if (wavHdr.channels === 2)
-  //     return wavToMp3Stereo(
-  //       wavHdr.channels,
-  //       wavHdr.sampleRate,
-  //       left,
-  //       right,
-  //     );
-  //   //MONO
-  //   else if (wavHdr.channels === 1)
-  //     return wavToMp3(wavHdr.channels, wavHdr.sampleRate, data);
-  // } else 
   return new Blob([btwArrBuff], { type: "audio/wav" });
 
   function setUint16(data) {
@@ -377,8 +142,8 @@ const commands = {
     playsound("Hii" + userEmail);
     const url = apiUrl + "checkemail";
     const formData = new FormData();
-    // formData.append("user_email", userEmail);
-    formData.append('user_email', 'saneesh3152@gmail.com');
+    formData.append("user_email", userEmail);
+    // formData.append('user_email', 'saneesh3152@gmail.com');
 
     const response = await fetch(url, {
       method: 'POST',
@@ -387,20 +152,20 @@ const commands = {
     });
     const result = await response.json();
 
-    if(response.status === 200) {
-      if(result['isPresent']) {
+    if (response.status === 200) {
+      if (result['isPresent']) {
         playsound("Hey, looks like you have been already registered. You can now use your mail.");
         playsound("Use menu command to access different actions for your mail");
       } else {
         playsound("Hey, looks like you are here for the first time. Please register yourself with voice biometrics before getting started");
-        playsound("Use command register myself to regiter yourself");
+        playsound("Use command register myself to register yourself");
       }
     }
     else {
       playsound("Something went wrong at server end, please try again.");
     }
   },
-  'menu' : function() {
+  'menu': function () {
     playsound("Inorder to compose a new mail, use command compose an email");
     playsound("Inorder to access inbox or search mail, use command inbox.");
   },
@@ -440,12 +205,12 @@ const commands = {
                   body: formData
                 });
 
-                const result = await result.json();
+                const result = await response.json();
 
                 if (response.status === 200) {
-                  if(result['isRegistered']) {
+                  if (result['isRegistered']) {
                     playsound("Congratulations, you have been registered successfully. You can now use voice commands to navigate through your gmail.");
-                  } else{
+                  } else {
                     playsound("Registration failed, please try again by using register myself command.");
                   }
                 } else {
@@ -513,10 +278,10 @@ const commands = {
                 waveBlob = audioBufferToWav(audioBuffer);
                 const formData = new FormData();
                 formData.append('audio_data', waveBlob, 'file');
-                formData.append('user_email', 'saneesh3152@gmail.com');
-                // formData.append('user_email', userEmail);
+                // formData.append('user_email', 'saneesh3152@gmail.com');
+                formData.append('user_email', userEmail);
 
-                const url = apiUrl  + "body";
+                const url = apiUrl + "body";
 
                 const response = await fetch(url, {
                   method: 'POST',
@@ -552,33 +317,6 @@ const commands = {
         console.log(error);
         console.error('Failed to record audio:', error);
       });
-    // chrome.runtime.sendMessage({action : "send_body_audio"});
-    // stopRecording()
-    //   .then(audioBlob => {
-    //     // Use the audio blob here
-    //     console.log('Recording stopped, audio blob is ready');
-
-    //     // const reader = new FileReader();
-    //     // reader.readAsDataURL(audioBlob);
-    //     // reader.onloadend = () => {
-    //     //   chrome.runtime.sendMessage({ action: "send_body_blob", blob : reader.result });
-    //     // };
-    //     const audio = new Audio();
-    //     audio.src = URL.createObjectURL(audioBlob);
-    //     audio.play();
-
-    //     // For example, create an object URL for the blob
-    //     // const audioUrl = URL.createObjectURL(audioBlob);
-    //     // console.log('Audio URL:', audioUrl);
-
-    //     // // Optionally, you can play the audio
-    //     // const audioElement = new Audio(audioUrl);
-    //     // audioElement.play();
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //     console.error('Failed to record audio:', error);
-    //   }); 
   },
   'send mail': function () {
     chrome.runtime.sendMessage({ action: "send_mail", data: body }, function (response) {
@@ -612,14 +350,14 @@ const commands = {
       console.log(response);
     });
   },
-  'pass on mail *ind': function (ind) {
+  'redirect mail *ind': function (ind) {
     playsound(ind);
 
     chrome.runtime.sendMessage({ action: "forward_in_unread", index: ind }, function (response) {
       console.log(response);
     });
   },
-  'pass on to *user': function (recipientsMail) {
+  'transfer to *user': function (recipientsMail) {
     playsound(recipientsMail);
     chrome.runtime.sendMessage({ action: "forward_in_unread_recipients_address", recipients_mail: recipientsMail }, function (response) {
       console.log(response);
@@ -627,7 +365,7 @@ const commands = {
   },
   'confirm forwarding': function () {
     playsound("Inorder to verify your request for forwarding this email, please say I provide consent for forwarding the above mail to followed by recipients email address.");
-    playsound("Use command verify forwarding in unread once done with providing consent.");
+    playsound("Use command verify forwarding once done with providing consent.");
     recordAudio();
   },
   'verify forwarding': function () {
@@ -650,6 +388,7 @@ const commands = {
                 waveBlob = audioBufferToWav(audioBuffer);
                 const formData = new FormData();
                 formData.append('audio_data', waveBlob, 'file');
+                formData.append('user_email', userEmail);
 
                 const url = apiUrl + "voiceverification";
 
@@ -696,7 +435,7 @@ const commands = {
   },
   'confirm deleting': function () {
     playsound("Inorder to verify your request for deleting this email, please say I provide consent for deleting the above mail to followed by recipients email address.");
-    playsound("Use command verify deleting in unread once done with providing consent.");
+    playsound("Use command verify deleting once done with providing consent.");
     recordAudio();
   },
   'verify deleting': function () {
@@ -719,6 +458,7 @@ const commands = {
                 waveBlob = audioBufferToWav(audioBuffer);
                 const formData = new FormData();
                 formData.append('audio_data', waveBlob, 'file');
+                formData.append('user_email', userEmail);
 
                 const url = apiUrl + "voiceverification";
 
@@ -764,28 +504,28 @@ const commands = {
       console.log(response);
     });
   },
-  'read mail *ind in search': function (ind) {
+  'read in fetched mail *ind': function (ind) {
     chrome.runtime.sendMessage({ action: "read_mail_in_search", index: ind }, function (response) {
       console.log(response);
     });
   },
-  'pass on mail *ind in search': function (ind) {
+  'relay mail *ind': function (ind) {
     chrome.runtime.sendMessage({ action: "forward_in_search", index: ind }, function (response) {
       console.log(response);
     });
   },
-  'pass on to *user in search': function (recipientsMail) {
+  'dispatch to *user': function (recipientsMail) {
     playsound(recipientsMail);
     chrome.runtime.sendMessage({ action: "forward_in_search_recipients_address", recipients_mail: recipientsMail }, function (response) {
       console.log(response);
     });
   },
-  'confirm forwarding in search': function () {
+  'confirm forwarding in fetched': function () {
     playsound("Inorder to verify your request for forwarding this email, please say I provide consent for forwarding the above mail to followed by recipients email address.");
-    playsound("Use command verify forwarding in search once done with providing consent.");
+    playsound("Use command verify forwarding in fetched once done with providing consent.");
     recordAudio();
   },
-  'verify forwarding in search': function () {
+  'verify forwarding in fetched': function () {
     stopRecording()
       .then(blob => {
         // Use the audio blob here
@@ -805,6 +545,7 @@ const commands = {
                 waveBlob = audioBufferToWav(audioBuffer);
                 const formData = new FormData();
                 formData.append('audio_data', waveBlob, 'file');
+                formData.append('user_email', userEmail);
 
                 const url = apiUrl + "voiceverification";
 
@@ -814,8 +555,9 @@ const commands = {
                   body: formData
                 });
                 // FileSaver.saveAs(waveBlob);
+                const result = await response.json();
                 if (response.status === 200) {
-                  if (response.body.isVerified) {
+                  if (result["isVerified"]) {
                     chrome.runtime.sendMessage({ action: "confirm_forwarding_in_search" }, function (response) {
                       console.log(response);
                     });
@@ -837,17 +579,17 @@ const commands = {
         console.error('Failed to record audio:', error);
       });
   },
-  'delete mail *ind in search': function (ind) {
+  'delete in fetched mail *ind': function (ind) {
     chrome.runtime.sendMessage({ action: "delete_in_search", index: ind }, function (response) {
       console.log(response);
     });
   },
-  'confirm deleting in search': function () {
+  'confirm deleting in fetched': function () {
     playsound("Inorder to verify your request for forwarding this email, please say I provide consent for forwarding the above mail to followed by recipients email address.");
-    playsound("Use command verify forwarding in search once done with providing consent.");
+    playsound("Use command verify forwarding in fetched once done with providing consent.");
     recordAudio();
   },
-  'verify deleting in search': function () {
+  'verify deleting in fetched': function () {
     stopRecording()
       .then(blob => {
         // Use the audio blob here
@@ -867,6 +609,7 @@ const commands = {
                 waveBlob = audioBufferToWav(audioBuffer);
                 const formData = new FormData();
                 formData.append('audio_data', waveBlob, 'file');
+                formData.append('user_email', userEmail);
 
                 const url = apiUrl + "voiceverification";
 
