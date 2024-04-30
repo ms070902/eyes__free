@@ -8,7 +8,7 @@ var audioChunks = [];
 let userEmail;
 let body = '';
 
-let apiUrl = "https://618c-202-179-95-90.ngrok-free.app/"
+let apiUrl = "https://9506-202-179-88-166.ngrok-free.app/"
 
 chrome.runtime.sendMessage({ action: "get_email" }, function (response) {
   userEmail = response.email;
@@ -434,7 +434,7 @@ const commands = {
     });
   },
   'confirm deleting': function () {
-    playsound("Inorder to verify your request for deleting this email, please say I provide consent for deleting the above mail to followed by recipients email address.");
+    playsound("Inorder to verify your request for deleting this email, please say I provide consent for deleting the above mail.");
     playsound("Use command verify deleting once done with providing consent.");
     recordAudio();
   },
@@ -467,9 +467,12 @@ const commands = {
                   cache: 'no-cache',
                   body: formData
                 });
+
+                const result  = await response.json();
                 // FileSaver.saveAs(waveBlob);
                 if (response.status === 200) {
-                  if (response.body.isVerified) {
+                  if (result['isVerified']) {
+                    playsound("Deleting the mail...");
                     chrome.runtime.sendMessage({ action: "confirm_deleting_in_unread" }, function (response) {
                       console.log(response);
                     });
@@ -618,9 +621,11 @@ const commands = {
                   cache: 'no-cache',
                   body: formData
                 });
+                const result = await response.json();
                 // FileSaver.saveAs(waveBlob);
                 if (response.status === 200) {
-                  if (response.body.isVerified) {
+                  if (response["isVerified"]) {
+                    playsound("Deleting mail...");
                     chrome.runtime.sendMessage({ action: "confirm_deleting_in_search" }, function (response) {
                       console.log(response);
                     });

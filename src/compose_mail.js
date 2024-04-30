@@ -16,7 +16,7 @@ chrome.runtime.sendMessage({ action: "get_email" }, function (response) {
   userEmail = response.email;
 });
 
-let apiUrl = "https://618c-202-179-95-90.ngrok-free.app/"
+let apiUrl = "https://9506-202-179-88-166.ngrok-free.app/"
 
 function composeEmail() {
   console.log("entered compose mail")

@@ -80,7 +80,7 @@ You can also use following commands inorder to build zip folder to be uploaded t
 ```
 ## Demo
 
-[Click here for video Demo](https://drive.google.com/file/d/1zr5pC-X_TISNTI7tlu4hh1sRucDroO-X/view?usp=sharing)
+[Click here for video Demo](https://drive.google.com/file/d/1vhKHfWZbSoSLtal6vR5Ptshc6wvcOa2K/view?usp=sharing)
 
 <img src="demo/extension_loaded.png" width="100" height="50" align="center">
 

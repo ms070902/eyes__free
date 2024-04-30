@@ -1,6 +1,6 @@
 'use strict';
 
-let apiUrl = "https://618c-202-179-95-90.ngrok-free.app/"
+let apiUrl = "https://9506-202-179-88-166.ngrok-free.app/"
 let unreadMailsArray = [];
 let searchedMailsArray = [];
 let mailToBeForwarded;
@@ -159,9 +159,7 @@ async function confirmDeletingMailInUnread() {
     playsound("Please wait a moment while we delete your mail.");
     const formData = new FormData();
     formData.append("user_email", userEmail);
-    formData.append("og_sender", mailToBeDeleted.from);
-    formData.append("subject", mailToBeDeleted.subject);
-    formData.append("body", mailToBeDeleted.body);
+    formData.append("id", mailToBeDeleted.id);
 
     const url = apiUrl + "deleteemail";
     const response = await fetch(url, {
@@ -317,9 +315,7 @@ async function confirmDeletingMailInSearchInUnread() {
     playsound("Please wait a moment while we delete your mail.");
     const formData = new FormData();
     formData.append("user_email", userEmail);
-    formData.append("og_sender", mailToBeDeletedInSearch.from);
-    formData.append("subject", mailToBeDeletedInSearch.subject);
-    formData.append("body", mailToBeDeletedInSearch.body);
+    formData.append("id", mailToBeDeletedInSearch.id);
 
     const url = apiUrl + "deleteemail";
     const response = await fetch(url, {
